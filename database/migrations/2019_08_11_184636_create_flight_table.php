@@ -17,6 +17,8 @@ class CreateFlightTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->decimal('price', 8, 2); //Format: 999999.99
+            $table->integer('airline_id');
+            $table->foreign('airline_id')->references('id')->on('airline');
             $table->integer('departure_airport_id');
             $table->foreign('departure_airport_id')->references('id')->on('airport');
             $table->integer('arrival_airport_id');
