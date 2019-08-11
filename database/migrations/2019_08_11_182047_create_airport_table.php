@@ -15,8 +15,6 @@ class CreateAirportTable extends Migration
     {
         Schema::create('airport', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('airline_id');
-            $table->foreign('airline_id')->references('id')->on('airline');
             $table->string('code'); //IATA Airport code
             $table->string('name'); //Airport full name
             $table->string('city'); //Airport city
