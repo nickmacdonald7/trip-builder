@@ -14,7 +14,7 @@ class CreateAirlineTable extends Migration
     public function up()
     {
         Schema::create('airline', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('code'); //IATA Airline code (e.g. AC)
             $table->timestamps();
