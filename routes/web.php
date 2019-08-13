@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/', 'Flight@createFlight');
+Route::get('/', 'Landing@createLanding');
