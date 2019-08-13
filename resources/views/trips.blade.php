@@ -35,7 +35,7 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 50px;
             }
         </style>
     </head>
@@ -45,6 +45,21 @@
                 <div class="title m-b-md">
                     Trip Builder
                 </div>
+                    <div class="form-group">
+                        <form method="POST" action="{{ config('app.url')}}/flight">
+                            <h2> Select your city of departure</h2>
+                            <div class="form-input">
+                                <label>City</label> <input type="text" name="name">
+                            </div>
+
+                            <h2> Select your destination</h2>
+                            <div class="form-input">
+                                <label>City</label> <input type="text" name="name">
+                            </div>
+
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
             </div>
         </div>
     </body>

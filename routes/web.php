@@ -11,6 +11,4 @@
 |
 */
 
-Route::get('/', function () {
-    return view('trips');
-});
+Route::get('/', 'Flight@createFlight');
