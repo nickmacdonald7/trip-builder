@@ -46,9 +46,9 @@
                     Trip Builder
                 </div>
                     <div class="form-group">
-                        <form method="POST" action="/flight">
+                        <form method="POST" action="/builder/dates">
                             @csrf
-                            <h2>I'm departing from...</h2>
+                            <h2>Where are you taking off?</h2>
                             <div class="form-input">
                                 <label>City</label>
                                 <select class="form-control" id="departureAirport" name="departureAirport">
@@ -64,14 +64,14 @@
                                 </select>
                             </div>
 
-                            <h2>And I'm going to...</h2>
+                            <h2>Where are you headed?</h2>
                             <div class="form-input">
                                 <label>City</label>
-                                <select class="form-control" id="departureAirport" name="departureAirport">
+                                <select class="form-control" id="arrivalAirport" name="arrivalAirport">
                                     @foreach ($airports as $airport)
                                         <option
                                             id ="{{ $airport->id }}"
-                                            {{ old('departureAirport') == $airport->id ? 'selected' : '' }}
+                                            {{ old('arrivalAirport') == $airport->id ? 'selected' : '' }}
                                             value="{{ $airport->id }}"
                                         >
                                             {{ $airport->city }} - ({{ $airport->code }})
@@ -80,7 +80,23 @@
                                 </select>
                             </div>
 
-                            <button type="submit">Submit</button>
+                            <h2>What kind of trip will this be?</h2>
+                            <div class="form-input">
+                                <label>Trip Type</label>
+                                <select class="form-control" id="tripType" name="tripType">
+                                    @foreach ($tripTypes as $tripType)
+                                        <option
+                                            id ="{{ $tripType->id }}"
+                                            {{ old('tripType') == $tripType->id ? 'selected' : '' }}
+                                            value="{{ $tripType->id }}"
+                                        >
+                                            {{ $tripType->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <br>
+                            <button type="submit">Start Building</button>
                         </form>
                     </div>
             </div>
