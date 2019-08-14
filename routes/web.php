@@ -12,3 +12,5 @@
 */
 
 Route::get('/', 'Landing@createLanding');
+
+Route::post('/builder/dates', 'Dates@createChooseDates');
