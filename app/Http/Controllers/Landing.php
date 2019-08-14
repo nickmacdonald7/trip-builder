@@ -16,7 +16,7 @@ class Landing extends Controller
     public function getAirports() {
         $airports = DB::table('airport')
             ->select('airport.city', 'airport.code', 'airport.id')
-            ->orderBy('city', 'desc')
+            ->orderBy('longitude', 'desc')
             ->get();
 
          return $airports;
