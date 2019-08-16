@@ -11,17 +11,19 @@ class Dates extends Controller
     public function createChooseDates(Request $request) {
         $request->flash();
 
-        if ($request->input('tripType') == Config::get('constants.tripTypes.oneWay')) {
-            $departureAirport = \App\Airport::where('id', $request->get('departureAirport'))->first()->city;
-            $arrivalAirport = \App\Airport::where('id', $request->get('arrivalAirport'))->first()->city;
+        $departureAirport = \App\Airport::where('id', $request->get('departureAirport'))->first()->city;
+        $arrivalAirport = \App\Airport::where('id', $request->get('arrivalAirport'))->first()->city;
 
+        if ($request->input('tripType') == Config::get('constants.tripTypes.oneWay')) {
             return view('one-way', [
-                'departureAirport' => $departureAirport,
                 'arrivalAirport' => $arrivalAirport,
             ]);
         }
         else if ($request->input('tripType' == Config::get('constants.tripTypes.roundTrip'))) {
-            return view('round-trip');
+            return view('round-trip', [
+                'departureAirport' => $departureAirport,
+                'arrivalAirport' => $arrivalAirport,
+            ]);
         }
     }
 
