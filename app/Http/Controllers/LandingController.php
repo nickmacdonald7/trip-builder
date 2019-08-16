@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
-class Landing extends Controller
+class LandingController extends Controller
 {
     public function createLanding() {
         return view('landing', [
@@ -39,4 +41,22 @@ class Landing extends Controller
 
         return $flights;
     }
+
+    public function validateLandingForm(Request $request) {
+
+        $request->validate([
+            'departureAirport' => [
+                'required',
+                'string',
+                Rule::notIn([$request->get('arrivalAirport')])
+            ],
+            'arrivalAirport' => [
+                'required',
+                'string',
+                Rule::notIn([$request->get('departureAirport')])
+            ],
+            'tripType' => 'required'
+        ]);
+    }
+
 }

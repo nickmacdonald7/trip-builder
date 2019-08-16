@@ -46,7 +46,7 @@
                     Trip Builder
                 </div>
                     <div class="form-group">
-                        <form method="POST" action="/builder/dates">
+                        <form method="POST" action="{{ route('form.landing') }}">
                             @csrf
                             <h2>Where are you taking off?</h2>
                             <div class="form-input">
@@ -96,6 +96,15 @@
                                 </select>
                             </div>
                             <br>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <button type="submit">Start Building</button>
                         </form>
                     </div>

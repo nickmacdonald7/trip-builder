@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
 
-class Dates extends Controller
+class DatesController extends Controller
 {
     public function createChooseDates(Request $request) {
         $request->flash();
