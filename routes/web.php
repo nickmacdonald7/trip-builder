@@ -14,5 +14,3 @@
 Route::get('/', 'LandingController@createLanding');
 
 Route::post('/', 'LandingController@validateLandingForm')->name('form.landing');
-
-Route::post('/builder/dates', 'DatesController@createChooseDates');
