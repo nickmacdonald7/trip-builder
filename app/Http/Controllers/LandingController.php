@@ -67,7 +67,7 @@ class LandingController extends Controller
                 'arrivalAirport' => $arrivalAirport,
             ]);
         }
-        else if ($request->input('tripType' == Config::get('constants.tripTypes.roundTrip'))) {
+        else if ($request->input('tripType') == Config::get('constants.tripTypes.roundTrip')) {
             return view('round-trip', [
                 'departureAirport' => $departureAirport,
                 'arrivalAirport' => $arrivalAirport,
