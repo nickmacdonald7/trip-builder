@@ -45,7 +45,6 @@ class LandingController extends Controller
     }
 
     public function validateLandingForm(Request $request) {
-
         $request->validate([
             'departureAirport' => [
                 'required',
