@@ -54,7 +54,7 @@
                             <div class="form-input">
                                 <label>City</label>
                                 <select class="form-control" id="departureFlight" name="departureFlight">
-                                    @foreach ($flights as $flight)
+                                    @foreach ($departureFlights as $flight)
                                         <option
                                             id ="{{ $flight->id }}"
                                             {{ old('departureFlight') == $flight->id ? 'selected' : '' }}
@@ -72,7 +72,7 @@
                             <div class="form-input">
                                 <label>City</label>
                                 <select class="form-control" id="returnFlight" name="returnFlight">
-                                    @foreach ($flights as $flight)
+                                    @foreach ($returnFlights as $flight)
                                         <option
                                             id ="{{ $flight->id }}"
                                             {{ old('returnFlight') == $flight->id ? 'selected' : '' }}
