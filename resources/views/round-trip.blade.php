@@ -57,7 +57,7 @@
                             <h2>And what date are you going back to {{ $departureAirport }}?</h2>
                             <div class="form-input">
                                 <label>Return Date</label>
-                                <input type="text" class="date" name="arrivalDate">
+                                <input type="text" class="date" name="returnDate">
                             </div>
                             <br>
                             <button type="submit">Select Flights</button>
