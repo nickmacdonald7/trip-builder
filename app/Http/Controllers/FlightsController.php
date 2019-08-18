@@ -17,7 +17,7 @@ class FlightsController extends Controller
     public function getFlights() {
         $flights = DB::table('flight')
             ->join('airline', 'flight.airline_id', '=', 'airline.id')
-            ->select('airline.id', 'flight.number', 'airline.code')
+            ->select('airline.id', 'airline.code', 'flight.number', 'flight.departure_time', 'flight.arrival_time')
             ->get();
 
         return $flights;

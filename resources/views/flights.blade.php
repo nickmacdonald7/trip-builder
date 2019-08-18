@@ -76,7 +76,7 @@
                                             {{ old('returnFlight') == $flight->id ? 'selected' : '' }}
                                             value="{{ $flight->id }}"
                                         >
-                                            {{ $flight->code }}{{ $flight->number }}
+                                            {{ $flight->code }}{{ $flight->number }} - ({{ date('H:i', strtotime($flight->departure_time)) }} - {{ date('H:i', strtotime($flight->arrival_time)) }})
                                         </option>
                                     @endforeach
                                 </select>
