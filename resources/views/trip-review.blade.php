@@ -61,6 +61,14 @@
                 @endif
 
                 <h2>Total cost: ${{ number_format(Session::get('totalCost'), 2) }}</h2>
+
+                <br>
+                <br>
+
+                <h1>Want to build another trip?</h1>
+                <form action="/">
+                    <button type="submit">Build another Trip</button>
+                </form>
             </div>
         </div>
     </body>
