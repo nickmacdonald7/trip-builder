@@ -92,8 +92,8 @@
                             @if(Session::has('error'))
                                 <p class="alert alert-danger">{{ Session::get('error') }}</p>
                             @endif
-                            @if (count($departureFlights) > 0 && count($returnFlights) > 0)
-                                <button type="submit">Start Building</button>
+                            @if (count($departureFlights) > 0 || count($returnFlights) > 0)
+                                <button type="submit">Show my Trip</button>
                             @endif
                         </form>
                     </div>
