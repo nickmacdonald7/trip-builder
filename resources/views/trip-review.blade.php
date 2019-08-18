@@ -47,13 +47,13 @@
                 </div>
                 <h1>Your trip from {{ Session::get('departureAirport.city') }} to {{ Session::get('arrivalAirport.city') }}:</h1>
 
-                <h2>Departing from {{ Session::get('departureAirport.code') }}:</h2>
+                <h2>Departing {{ Session::get('departureAirport.city') }} from {{ Session::get('departureAirport.code') }}:</h2>
                 <p>Flight: {{ Session::get('departureFlight.name') }} ({{ Session::get('departureFlight.airlineName') }})</p>
                 <p>Departs {{ Session::get('departureAirport.code') }} at {{ Session::get('departureFlight.departureTime') }} local time ({{ Session::get('departureFlight.departureTimezone') }}).</p>
                 <p>Arrives in {{ Session::get('arrivalAirport.code') }} at {{ Session::get('departureFlight.arrivalTime') }} local time ({{ Session::get('departureFlight.arrivalTimezone') }}).</p>
 
-                @if (Session::has('returnFlight'))
-                    <h2>Returning from {{ Session::get('arrivalAirport.code') }}:</h2>
+                @if ($includeReturn)
+                    <h2>Returning from {{ Session::get('arrivalAirport.city') }} via {{ Session::get('arrivalAirport.code') }}:</h2>
                     <p>Flight: {{ Session::get('returnFlight.name') }} ({{ Session::get('returnFlight.airlineName') }})</p>
                     <p>Departs {{ Session::get('arrivalAirport.code') }} at {{ Session::get('returnFlight.departureTime') }} local time ({{ Session::get('returnFlight.departureTimezone') }}).</p>
                     <p>Arrives in {{ Session::get('departureAirport.code') }} at {{ Session::get('returnFlight.arrivalTime') }} local time ({{ Session::get('returnFlight.arrivalTimezone') }}).</p>
