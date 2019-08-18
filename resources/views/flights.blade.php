@@ -68,10 +68,10 @@
                                     </select>
                                 </div>
                             @else
-                                <h2>No flights to display. Try choosing another city!</h2>
+                                <p>No departing flights to display. Try choosing another city!</p>
                             @endif
 
-                            @if (count($returnFlights) > 0)
+                            @if (count($departureFlights) > 0 && count($returnFlights) > 0)
                                 <h2>Choose a return flight from {{ Session::get('arrivalAirport.city') }} on {{ date('F jS', strtotime(Session::get('returnDate'))) }}</h2>
                                 <div class="form-input">
                                     <label>City</label>
@@ -90,12 +90,18 @@
                                         @endforeach
                                     </select>
                                 </div>
+                            @elseif (Session::get('tripType.id') == Config::get('constants.tripTypes.roundTrip'))
+                                <p>No return flights to display. Try choosing another city!</p>
                             @endif
                             @if(Session::has('error'))
                                 <p class="alert alert-danger">{{ Session::get('error') }}</p>
                             @endif
-                            @if (count($departureFlights) > 0 || count($returnFlights) > 0)
-                                <button type="submit">Show my Trip</button>
+                            @if (Session::get('tripType.id') == Config::get('constants.tripTypes.oneWay') && count($departureFlights) > 0)
+                                <button type="submit">Show my one-way Trip</button>
+                            @elseif (Session::get('tripType.id') == Config::get('constants.tripTypes.roundTrip') && count($departureFlights) > 0 && count($returnFlights) > 0)
+                                <button type="submit">Show my round-trip Trip</button>
+                            @else
+                                <h2>Please go back and select another city to continue.</h2>
                             @endif
                         </form>
                     </div>
