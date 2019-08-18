@@ -10,7 +10,7 @@ class DatesController extends Controller
         $currentDate = date('Y-m-d');
         $yearFromNowDate = $currentDate . '+1 year';
 
-        //Validate both departure and return dates
+        //Validate departure date
         $request->validate([
             'departureDate' => [
                 'required',
