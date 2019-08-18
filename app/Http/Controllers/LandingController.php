@@ -59,11 +59,13 @@ class LandingController extends Controller
                 'id' => $departureAirport->id,
                 'city' => $departureAirport->city,
                 'name' => $departureAirport->name,
+                'code' => $departureAirport->code,
             ],
             'arrivalAirport' => [
                 'id' => $arrivalAirport->id,
                 'city' => $arrivalAirport->city,
                 'name' => $arrivalAirport->name,
+                'code' => $arrivalAirport->code,
             ],
             'tripType' => [
                 'id' => $tripType->id,
