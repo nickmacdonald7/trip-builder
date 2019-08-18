@@ -60,7 +60,9 @@
                                             {{ old('departureFlight') == $flight->id ? 'selected' : '' }}
                                             value="{{ $flight->id }}"
                                         >
-                                            {{ $flight->code }}{{ $flight->number }}
+                                            {{ $flight->code }}{{ $flight->number }} -
+                                            {{$flight->da_code}} to {{$flight->aa_code}}
+                                            (departing {{ date('H:i', strtotime($flight->departure_time)) }} - arriving {{ date('H:i', strtotime($flight->arrival_time)) }})
                                         </option>
                                     @endforeach
                                 </select>
@@ -76,7 +78,9 @@
                                             {{ old('returnFlight') == $flight->id ? 'selected' : '' }}
                                             value="{{ $flight->id }}"
                                         >
-                                            {{ $flight->code }}{{ $flight->number }} - ({{ date('H:i', strtotime($flight->departure_time)) }} - {{ date('H:i', strtotime($flight->arrival_time)) }})
+                                            {{ $flight->code }}{{ $flight->number }} -
+                                            {{$flight->da_code}} to {{$flight->aa_code}}
+                                            (departing {{ date('H:i', strtotime($flight->departure_time)) }} - arriving {{ date('H:i', strtotime($flight->arrival_time)) }})
                                         </option>
                                     @endforeach
                                 </select>
