@@ -13,7 +13,6 @@ class FlightsController extends Controller
 {
     public function buildTrip(Request $request) {
         $totalCost = 0;
-        $includeReturn = false;
 
         $departureDate = Session::get('departureDate');
         $departureFlight = $returnFlight = $this->getFlightById($request->get('departureFlight'));
@@ -71,13 +70,11 @@ class FlightsController extends Controller
             ]);
 
             $totalCost += (double) $returnFlight->price;
-
-            $includeReturn = true;
         }
 
         session(['totalCost' => $totalCost]);
 
-        return view('trip-review', ['includeReturn' => $includeReturn]);
+        return view('trip-review');
     }
 
     public function createFlights() {

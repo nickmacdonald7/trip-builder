@@ -52,7 +52,7 @@
                 <p>Departs {{ Session::get('departureAirport.code') }} at {{ Session::get('departureFlight.departureTime') }} local time ({{ Session::get('departureFlight.departureTimezone') }}).</p>
                 <p>Arrives in {{ Session::get('arrivalAirport.code') }} at {{ Session::get('departureFlight.arrivalTime') }} local time ({{ Session::get('departureFlight.arrivalTimezone') }}).</p>
 
-                @if ($includeReturn)
+                @if (Session::get('tripType.id') == Config::get('constants.tripTypes.roundTrip'))
                     <h2>Returning from {{ Session::get('arrivalAirport.city') }} via {{ Session::get('arrivalAirport.code') }}:</h2>
                     <p>Flight: {{ Session::get('returnFlight.name') }} ({{ Session::get('returnFlight.airlineName') }})</p>
                     <p>Departs {{ Session::get('arrivalAirport.code') }} at {{ Session::get('returnFlight.departureTime') }} local time ({{ Session::get('returnFlight.departureTimezone') }}).</p>
