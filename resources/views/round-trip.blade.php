@@ -48,13 +48,13 @@
                     <div class="form-group">
                         <form method="POST" action="{{ route('form.roundTripDates') }}">
                             @csrf
-                            <h2>Headed to {{ Session::get('arrivalAirport') }}? What date?</h2>
+                            <h2>Headed to {{ Session::get('arrivalAirport.city') }}? What date?</h2>
                             <div class="form-input">
                                 <label>Departure Date</label>
                                 <input type="text" class="date" name="departureDate">
                             </div>
 
-                            <h2>And what date are you going back to {{ Session::get('departureAirport') }}?</h2>
+                            <h2>And what date are you going back to {{ Session::get('departureAirport.city') }}?</h2>
                             <div class="form-input">
                                 <label>Return Date</label>
                                 <input type="text" class="date" name="returnDate">

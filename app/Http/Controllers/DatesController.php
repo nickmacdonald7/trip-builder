@@ -22,7 +22,7 @@ class DatesController extends Controller
             ],
         ]);
 
-        $data = $request->session()->all();
+        session(['departureDate' => (string)$request->get('departureDate')]);
 
         return redirect()->route('flights');
     }
@@ -47,6 +47,11 @@ class DatesController extends Controller
                 'before:' . $yearFromNowDate,
                 'after_or_equal:' . $currentDate,
             ],
+        ]);
+
+        session([
+            'departureDate' => $request->get('departureDate'),
+            'returnDate' => $request->get('returnDate')
         ]);
 
         return redirect()->route('flights');

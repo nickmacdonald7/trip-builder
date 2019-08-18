@@ -48,7 +48,9 @@
                     <div class="form-group">
                         <form method="POST" action="">
                             @csrf
-                            <h2>Choose a departing flight from {{ Session::get('departureAirport') }}:</h2>
+                            <h1></h1>
+
+                            <h2>Choose a departing flight from {{ Session::get('departureAirport.city') }} on {{ date('F jS', strtotime(Session::get('departureDate'))) }}:</h2>
                             <div class="form-input">
                                 <label>City</label>
                                 <select class="form-control" id="departureFlight" name="departureFlight">
@@ -64,7 +66,7 @@
                                 </select>
                             </div>
 
-                            <h2>Choose a return flight from {{ Session::get('arrivalAirport') }}:</h2>
+                            <h2>Choose a return flight from {{ Session::get('arrivalAirport.city') }} on {{ date('F jS', strtotime(Session::get('returnDate'))) }}</h2>
                             <div class="form-input">
                                 <label>City</label>
                                 <select class="form-control" id="returnFlight" name="returnFlight">

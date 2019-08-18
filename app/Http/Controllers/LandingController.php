@@ -50,21 +50,31 @@ class LandingController extends Controller
             'tripType' => 'required'
         ]);
 
-        $departureAirport = \App\Airport::where('id', $request->get('departureAirport'))->first()->city;
-        $arrivalAirport = \App\Airport::where('id', $request->get('arrivalAirport'))->first()->city;
+        $departureAirport = \App\Airport::where('id', $request->get('departureAirport'))->first();
+        $arrivalAirport = \App\Airport::where('id', $request->get('arrivalAirport'))->first();
+        $tripType = \App\TripType::where('id', $request->get('tripType'))->first();
+
+        session([
+            'departureAirport' => [
+                'id' => $departureAirport->id,
+                'city' => $departureAirport->city,
+                'name' => $departureAirport->name,
+            ],
+            'arrivalAirport' => [
+                'id' => $arrivalAirport->id,
+                'city' => $arrivalAirport->city,
+                'name' => $arrivalAirport->name,
+            ],
+            'tripType' => [
+                'id' => $tripType->id,
+                'name' => $tripType->name,
+            ]
+        ]);
 
         if ($request->input('tripType') == Config::get('constants.tripTypes.oneWay')) {
-            session([
-                'departureAirport' => $departureAirport,
-                'arrivalAirport' => $arrivalAirport
-            ]);
             return view('one-way');
         }
         else if ($request->input('tripType') == Config::get('constants.tripTypes.roundTrip')) {
-            session([
-                'departureAirport' => $departureAirport,
-                'arrivalAirport' => $arrivalAirport
-            ]);
             return view('round-trip');
         }
     }

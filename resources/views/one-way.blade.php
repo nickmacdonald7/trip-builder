@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <form method="POST" action="{{ route('form.oneWayDate') }}">
                             @csrf
-                            <h2>Headed to {{ Session::get('arrivalAirport') }}? What date?</h2>
+                            <h2>Headed to {{ Session::get('arrivalAirport.city') }}? What date?</h2>
                             <div class="form-input">
                                 <label>Departure Date</label>
                                 <input type="text" class="date" name="departureDate">
