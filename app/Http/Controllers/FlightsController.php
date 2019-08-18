@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +11,42 @@ use Illuminate\Support\Facades\Session;
 
 class FlightsController extends Controller
 {
+    public function validateTrip(Request $request) {
+        $departureDate = Session::get('departureDate');
+        $departureFlight = \App\Flight::where('id', $request->get('departureFlight'))->first();
+        $departureAirport = \App\Airport::where('id', Session::get('departureAirport.id'))->first();
+
+        $departureFlightDepartureDatetime = date('Y-m-d H:i:s', strtotime("{$departureDate} {$departureFlight->departure_time}"));
+        $departureFlightArrivalDatetime = date('Y-m-d H:i:s', strtotime("{$departureDate} {$departureFlight->arrival_time}"));
+
+        $currentDatetimeInDepartureTimezone = new DateTime("now", new DateTimeZone($departureAirport->timezone));
+        $currentDatetimeInDepartureTimezone = $currentDatetimeInDepartureTimezone->format('Y-m-d H:i:s');
+
+        if (strtotime($departureFlightDepartureDatetime) < strtotime($currentDatetimeInDepartureTimezone)) {
+            Session::flash('error', "Departure flight is not valid, departure time $departureFlightDepartureDatetime is earlier than current time
+             in departure city, $currentDatetimeInDepartureTimezone. Pick another flight.");
+            return redirect()->back();
+        }
+
+        if ($request->has('returnFlight')) {
+            $returnDate = Session::get('returnDate');
+            $returnFlight = \App\Flight::where('id', $request->get('returnFlight'))->first();
+
+            $returnFlightDepartureDatetime = date('Y-m-d H:i:s', strtotime("{$returnDate} {$returnFlight->departure_time}"));
+
+            if (strtotime($departureFlightArrivalDatetime) > strtotime($returnFlightDepartureDatetime)) {
+                Session::flash('error', "Return flight is not valid, return flight leaves at $returnFlightDepartureDatetime before
+                 the departing flight's arrival time at $departureFlightArrivalDatetime. Pick another flight.");
+                return redirect()->back();
+            }
+
+        }
+
+//        return view('full-trip', [
+//
+//        ]);
+    }
+
     public function createFlights() {
         $departureFlights = [];
         $returnFlights = [];

@@ -46,22 +46,22 @@
                     Trip Builder
                 </div>
                     <div class="form-group">
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('form.trip') }}">
                             @csrf
                             @if (count($departureFlights) > 0)
                                 <h2>Choose a departing flight from {{ Session::get('departureAirport.city') }} on {{ date('F jS', strtotime(Session::get('departureDate'))) }}:</h2>
                                 <div class="form-input">
                                     <label>City</label>
                                     <select class="form-control" id="departureFlight" name="departureFlight">
-                                        @foreach ($departureFlights as $flight)
+                                        @foreach ($departureFlights as $dFlight)
                                             <option
-                                                id ="{{ $flight->id }}"
-                                                {{ old('departureFlight') == $flight->id ? 'selected' : '' }}
-                                                value="{{ $flight->id }}"
+                                                id ="{{ $dFlight->id }}"
+                                                {{ old('departureFlight') == $dFlight->id ? 'selected' : '' }}
+                                                value="{{ $dFlight->id }}"
                                             >
-                                                {{ $flight->code }}{{ $flight->number }} -
-                                                {{$flight->da_code}} to {{$flight->aa_code}}
-                                                (departing {{ date('H:i', strtotime($flight->departure_time)) }} - arriving {{ date('H:i', strtotime($flight->arrival_time)) }})
+                                                {{ $dFlight->code }}{{ $dFlight->number }} -
+                                                {{$dFlight->da_code}} to {{$dFlight->aa_code}}
+                                                (departing {{ date('H:i', strtotime($dFlight->departure_time)) }} - arriving {{ date('H:i', strtotime($dFlight->arrival_time)) }})
                                             </option>
                                         @endforeach
                                     </select>
@@ -89,14 +89,8 @@
                                     </select>
                                 </div>
                             @endif
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+                            @if(Session::has('error'))
+                                <p class="alert alert-danger">{{ Session::get('error') }}</p>
                             @endif
                             @if (count($departureFlights) > 0 && count($returnFlights) > 0)
                                 <button type="submit">Start Building</button>
