@@ -53,15 +53,16 @@
                                 <div class="form-input">
                                     <label>City</label>
                                     <select class="form-control" id="departureFlight" name="departureFlight">
-                                        @foreach ($departureFlights as $dFlight)
+                                        @foreach ($departureFlights as $flight)
                                             <option
-                                                id ="{{ $dFlight->id }}"
-                                                {{ old('departureFlight') == $dFlight->id ? 'selected' : '' }}
-                                                value="{{ $dFlight->id }}"
+                                                id ="{{ $flight->id }}"
+                                                {{ old('departureFlight') == $flight->id ? 'selected' : '' }}
+                                                value="{{ $flight->id }}"
                                             >
-                                                {{ $dFlight->code }}{{ $dFlight->number }} -
-                                                {{$dFlight->da_code}} to {{$dFlight->aa_code}}
-                                                (departing {{ date('H:i', strtotime($dFlight->departure_time)) }} - arriving {{ date('H:i', strtotime($dFlight->arrival_time)) }})
+                                                {{ $flight->code }}{{ $flight->number }} -
+                                                {{ $flight->da_code }} to {{ $flight->aa_code }}
+                                                (departing {{ date('H:i', strtotime($flight->departure_time)) }} - arriving {{ date('H:i', strtotime($flight->arrival_time)) }})
+                                                - ${{ $flight->price }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -82,8 +83,9 @@
                                                 value="{{ $flight->id }}"
                                             >
                                                 {{ $flight->code }}{{ $flight->number }} -
-                                                {{$flight->da_code}} to {{$flight->aa_code}}
+                                                {{ $flight->da_code }} to {{ $flight->aa_code }}
                                                 (departing {{ date('H:i', strtotime($flight->departure_time)) }} - arriving {{ date('H:i', strtotime($flight->arrival_time)) }})
+                                                - ${{ $flight->price }}
                                             </option>
                                         @endforeach
                                     </select>
