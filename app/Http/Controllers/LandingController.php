@@ -35,15 +35,6 @@ class LandingController extends Controller
         return $tripTypes;
     }
 
-    public function getFlights() {
-        $flights = DB::table('flight')
-            ->join('airline', 'flight.airline_id', '=', 'airline.id')
-            ->select('flight.number', 'airline.code')
-            ->get();
-
-        return $flights;
-    }
-
     public function validateLandingForm(Request $request) {
         $request->validate([
             'departureAirport' => [
@@ -63,15 +54,18 @@ class LandingController extends Controller
         $arrivalAirport = \App\Airport::where('id', $request->get('arrivalAirport'))->first()->city;
 
         if ($request->input('tripType') == Config::get('constants.tripTypes.oneWay')) {
-            return view('one-way', [
-                'arrivalAirport' => $arrivalAirport,
+            session([
+                'departureAirport' => $departureAirport,
+                'arrivalAirport' => $arrivalAirport
             ]);
+            return view('one-way');
         }
         else if ($request->input('tripType') == Config::get('constants.tripTypes.roundTrip')) {
-            return view('round-trip', [
+            session([
                 'departureAirport' => $departureAirport,
-                'arrivalAirport' => $arrivalAirport,
+                'arrivalAirport' => $arrivalAirport
             ]);
+            return view('round-trip');
         }
     }
 

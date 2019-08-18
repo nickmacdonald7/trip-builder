@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Session;
 
 class DatesController extends Controller
 {
@@ -20,7 +22,9 @@ class DatesController extends Controller
             ],
         ]);
 
-        return view();
+        $data = $request->session()->all();
+
+        return redirect()->route('flights');
     }
 
     public function validateRoundTripDatesForm(Request $request) {
@@ -45,6 +49,6 @@ class DatesController extends Controller
             ],
         ]);
 
-        return view();
+        return redirect()->route('flights');
     }
 }

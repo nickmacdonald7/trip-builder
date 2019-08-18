@@ -20,3 +20,5 @@ Route::get('/build-trip/round-trip');
 
 Route::post('/build-trip/one-way', 'DatesController@validateOneWayDateForm')->name('form.oneWayDate');
 Route::post('/build-trip/round-trip', 'DatesController@validateRoundTripDatesForm')->name('form.roundTripDates');
+
+Route::get('/build-trip/flights', 'FlightsController@createFlights')->name('flights');
