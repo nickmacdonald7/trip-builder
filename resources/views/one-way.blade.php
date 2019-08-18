@@ -46,7 +46,7 @@
                     Trip Builder
                 </div>
                     <div class="form-group">
-                        <form method="POST" action="/builder/flights">
+                        <form method="POST" action="{{ route('form.oneWayDate') }}">
                             @csrf
                             <h2>Headed to {{ $arrivalAirport }}? What date?</h2>
                             <div class="form-input">

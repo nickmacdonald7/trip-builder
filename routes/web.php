@@ -14,3 +14,9 @@
 Route::get('/', 'LandingController@createLanding');
 
 Route::post('/', 'LandingController@validateLandingForm')->name('form.landing');
+
+Route::get('/build-trip/one-way');
+Route::get('/build-trip/round-trip');
+
+Route::post('/build-trip/one-way', 'DatesController@validateOneWayDateForm')->name('form.oneWayDate');
+Route::post('/build-trip/round-trip', 'DatesController@validateRoundTripDatesForm')->name('form.roundTripDates');
