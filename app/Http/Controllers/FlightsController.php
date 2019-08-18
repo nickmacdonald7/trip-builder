@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Session;
 
 class FlightsController extends Controller
 {
-    public function validateTrip(Request $request) {
+    public function buildTrip(Request $request) {
+        $totalCost = 0;
+
         $departureDate = Session::get('departureDate');
-        $departureFlight = \App\Flight::where('id', $request->get('departureFlight'))->first();
+        $departureFlight = $returnFlight = $this->getFlightById($request->get('departureFlight'));
         $departureAirport = \App\Airport::where('id', Session::get('departureAirport.id'))->first();
 
         $departureFlightDepartureDatetime = date('Y-m-d H:i:s', strtotime("{$departureDate} {$departureFlight->departure_time}"));
@@ -28,9 +30,24 @@ class FlightsController extends Controller
             return redirect()->back();
         }
 
+        $totalCost += (double) $departureFlight->price;
+
+        session([
+            'departureFlight' => [
+                'name' => $departureFlight->airline_code . $returnFlight->number,
+                'airlineName' => $departureFlight->airline_name,
+                'date' => Session::get('departureDate'),
+                'departureTime' => $departureFlight->departure_time,
+                'departureTimezone' => $departureFlight->da_timezone,
+                'arrivalTime' => $departureFlight->arrival_time,
+                'arrivalTimezone' => $departureFlight->aa_timezone,
+            ]
+
+        ]);
+
         if ($request->has('returnFlight')) {
             $returnDate = Session::get('returnDate');
-            $returnFlight = \App\Flight::where('id', $request->get('returnFlight'))->first();
+            $returnFlight = $this->getFlightById($request->get('returnFlight'));
 
             $returnFlightDepartureDatetime = date('Y-m-d H:i:s', strtotime("{$returnDate} {$returnFlight->departure_time}"));
 
@@ -40,11 +57,24 @@ class FlightsController extends Controller
                 return redirect()->back();
             }
 
+            session([
+                'returnFlight' => [
+                    'name' => $returnFlight->airline_code . $returnFlight->number,
+                    'airlineName' => $returnFlight->airline_name,
+                    'date' => Session::get('returnDate'),
+                    'departureTime' => $returnFlight->departure_time,
+                    'departureTimezone' => $returnFlight->da_timezone,
+                    'arrivalTime' => $returnFlight->arrival_time,
+                    'arrivalTimezone' => $returnFlight->aa_timezone,
+                ]
+            ]);
+
+            $totalCost += (double) $returnFlight->price;
         }
 
-//        return view('full-trip', [
-//
-//        ]);
+        session(['totalCost' => $totalCost]);
+
+        return view('trip-review');
     }
 
     public function createFlights() {
@@ -63,14 +93,26 @@ class FlightsController extends Controller
         ]);
     }
 
+    public function getFlightById($flightId) {
+        return DB::table('flight')
+            ->join('airline', 'flight.airline_id', '=', 'airline.id')
+            ->join('airport AS da', 'flight.departure_airport_id', '=', 'da.id')
+            ->join('airport AS aa', 'flight.arrival_airport_id', '=', 'aa.id')
+            ->select('airline.name as airline_name','airline.code as airline_code', 'flight.number', 'flight.price', 'flight.departure_time', 'flight.arrival_time', 'da.timezone as da_timezone', 'aa.timezone as aa_timezone')
+            ->where('flight.id', '=', $flightId)
+            ->get()
+            ->first();
+    }
+
     public function getFlights($departureAirportId, $arrivalAirportId) {
         $flights = DB::table('flight')
             ->join('airline', 'flight.airline_id', '=', 'airline.id')
             ->join('airport AS da', 'flight.departure_airport_id', '=', 'da.id')
             ->join('airport AS aa', 'flight.arrival_airport_id', '=', 'aa.id')
-            ->select('airline.code', 'flight.id', 'flight.number', 'flight.departure_time', 'flight.arrival_time', 'da.code AS da_code', 'aa.code AS aa_code')
+            ->select('airline.code', 'flight.id', 'flight.number', 'flight.price', 'flight.departure_time', 'flight.arrival_time', 'da.code AS da_code', 'aa.code AS aa_code')
             ->where('flight.departure_airport_id', '=', $departureAirportId)
             ->where('flight.arrival_airport_id', '=', $arrivalAirportId)
+            ->orderBy('flight.departure_time', 'asc')
             ->get();
 
         return $flights;
