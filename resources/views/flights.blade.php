@@ -93,9 +93,14 @@
                             @elseif (Session::get('tripType.id') == Config::get('constants.tripTypes.roundTrip'))
                                 <p>No return flights to display. Try choosing another city!</p>
                             @endif
+
                             @if(Session::has('error'))
                                 <p class="alert alert-danger">{{ Session::get('error') }}</p>
                             @endif
+
+                            <br>
+                            <br>
+
                             @if (Session::get('tripType.id') == Config::get('constants.tripTypes.oneWay') && count($departureFlights) > 0)
                                 <button type="submit">Show my one-way Trip</button>
                             @elseif (Session::get('tripType.id') == Config::get('constants.tripTypes.roundTrip') && count($departureFlights) > 0 && count($returnFlights) > 0)
