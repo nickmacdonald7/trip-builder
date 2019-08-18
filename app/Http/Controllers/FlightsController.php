@@ -3,16 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class FlightsController extends Controller
 {
     public function createFlights() {
+        $departureFlights = [];
+        $returnFlights = [];
+
+        $departureFlights = $this->getFlights(Session::get('departureAirport.id'), Session::get('arrivalAirport.id'));
+
+        if (Session::get('tripType.id') == Config::get('constants.tripTypes.roundTrip')) {
+            $returnFlights = $this->getFlights(Session::get('arrivalAirport.id'), Session::get('departureAirport.id'));
+        }
+
         return view('flights', [
-            'departureFlights' => $this->getFlights(Session::get('departureAirport.id'), Session::get('arrivalAirport.id')),
-            'returnFlights' => $this->getFlights(Session::get('arrivalAirport.id'), Session::get('departureAirport.id')),
-            'departureAirport' => session()->get('departureAirport')
+            'departureFlights' => $departureFlights,
+            'returnFlights' => $returnFlights,
         ]);
     }
 

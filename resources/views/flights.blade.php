@@ -68,6 +68,7 @@
                                 </select>
                             </div>
 
+                            @if (count($returnFlights) > 0)
                             <h2>Choose a return flight from {{ Session::get('arrivalAirport.city') }} on {{ date('F jS', strtotime(Session::get('returnDate'))) }}</h2>
                             <div class="form-input">
                                 <label>City</label>
@@ -85,6 +86,7 @@
                                     @endforeach
                                 </select>
                             </div>
+                            @endif
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
