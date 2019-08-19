@@ -7,7 +7,6 @@
 /.idea
 composer.phar
 composer.lock
-.env
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
