@@ -7,7 +7,7 @@ Flight, airline, airport, and other data is stored in Homestead's local instance
 Please follow the steps below carefully.
 
 
-##L inux (Ubuntu 18.04) setup instructions:
+## Linux (Ubuntu 18.04) setup instructions:
 
 
 ### Environment Setup Instructions
