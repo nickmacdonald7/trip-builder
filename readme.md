@@ -1,4 +1,4 @@
-#Trip Builder
+# Trip Builder
 
 Trip builder is a simple application used to build/navigate trips using criteria such as departure locations, departure dates, and arrival locations. I used this project as a chance to become familiar with the Laravel framework as well as the Laravel Homestead environment.
 
@@ -7,10 +7,10 @@ Flight, airline, airport, and other data is stored in Homestead's local instance
 Please follow the steps below carefully.
 
 
-##Linux (Ubuntu 18.04) setup instructions:
+##L inux (Ubuntu 18.04) setup instructions:
 
 
-###Environment Setup Instructions
+### Environment Setup Instructions
 
 Please note that one step of this process involves downloading a laravel vagrant box: this step can take upwards of an hour depending on your connection.
 
@@ -79,7 +79,7 @@ Please note that one step of this process involves downloading a laravel vagrant
 	- These instructions/steps are similar on Windows, but the shell commands will be slightly different. I suggest using git-bash if you take this route.
 
 
-###Install Instructions
+### Install Instructions
 
 1. Download `trip-builder` from the repository and store in in `~/code` using this command in your terminal:
 
@@ -117,7 +117,7 @@ Please note that one step of this process involves downloading a laravel vagrant
 	- If you run into any weirdness with vagrant after changing any configurations, run `vagrant reload --provision` from your the `~/Homestead` directory in your terminal.
 
 
-###Run Instructions
+### Run Instructions
 	
 In a browser, navigate to http://trip-builder.localhost/
 
@@ -130,7 +130,7 @@ On the following page, you will see a list of available flights including their 
 Finally, a page will appear with your itinerary and total cost. If you wish to go back to the first page and build another trip, press the "Build another Trip" button to do so.
 
 
-##Notes
+## Notes
 
 - Data for flights between various cities was intentionally left sparse in order to display instances where return flights or departure flights are not available.
 - This was not intended as an exercise in front-end development, so please excuse the lack of polish in the layout.
